@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-{!! NoCaptcha::renderJs() !!}
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Barbershop - Booking</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  {!! NoCaptcha::renderJs() !!}
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
   <style>
     body {
       background-color: #0f172a;
     }
+
     .text-gold {
       color: #fbbf24;
     }
+
     .bg-gold {
       background-color: #fbbf24;
     }
+
     .border-gold {
       border-color: #fbbf24;
     }
+
     .focus\:border-gold:focus {
       border-color: #fbbf24;
     }
@@ -64,18 +68,18 @@
         <div class="mb-6">
           <label for="customer_name" class="block text-sm font-semibold text-gray-300 mb-2">Nama Lengkap</label>
           <input type="text" name="customer_name" id="customer_name" required
-          class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-gray-600 focus:border-gold focus:outline-none transition"
-          placeholder="Masukkan nama lengkap Anda"
-          value="{{ old('customer_name') }}">
+            class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-gray-600 focus:border-gold focus:outline-none transition"
+            placeholder="Masukkan nama lengkap Anda"
+            value="{{ old('customer_name') }}">
         </div>
 
         <!-- No HP -->
         <div class="mb-6">
           <label for="customer_phone" class="block text-sm font-semibold text-gray-300 mb-2">Nomor WhatsApp</label>
           <input type="tel" name="customer_phone" id="customer_phone" required
-          class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-gray-600 focus:border-gold focus:outline-none transition"
-          placeholder="Contoh: 081234567890"
-          value="{{ old('customer_phone') }}">
+            class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-gray-600 focus:border-gold focus:outline-none transition"
+            placeholder="Contoh: 081234567890"
+            value="{{ old('customer_phone') }}">
         </div>
 
         <!-- Pilih Barber -->
@@ -110,9 +114,9 @@
         <div class="mb-6">
           <label for="booking_date" class="block text-sm font-semibold text-gray-300 mb-2">Tanggal</label>
           <input type="date" name="booking_date" id="booking_date" required
-          class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-gray-600 focus:border-gold focus:outline-none transition"
-          min="{{ date('Y-m-d') }}"
-          value="{{ old('booking_date') }}">
+            class="w-full bg-slate-700 text-white px-4 py-3 rounded-lg border border-gray-600 focus:border-gold focus:outline-none transition"
+            min="{{ date('Y-m-d') }}"
+            value="{{ old('booking_date') }}">
         </div>
 
         <!-- Waktu Booking -->

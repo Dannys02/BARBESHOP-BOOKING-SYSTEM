@@ -2,17 +2,41 @@
 
 namespace Database\Seeders;
 
-use App\Models\Activity;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Activity;
 
 class ActivitySeeder extends Seeder
 {
-  use WithoutModelEvents;
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $activities = [
+            [
+                'description' => 'Reservasi baru dibuat oleh Erza Kurniawan untuk Haircut & Styling.',
+                'type' => 'booking',
+            ],
+            [
+                'description' => 'Update status Erza Kurniawan: PENDING -> KONFIRMASI.',
+                'type' => 'booking',
+            ],
+            [
+                'description' => 'Update status Iza Makmur: KONFIRMASI -> SELESAI.',
+                'type' => 'booking',
+            ],
+            [
+                'description' => 'Reservasi Gilang Kamal untuk The Executive Cut telah dibatalkan.',
+                'type' => 'booking',
+            ],
+            [
+                'description' => 'Barber baru ditambahkan: Rizky Aditya.',
+                'type' => 'barber',
+            ],
+        ];
 
-  public function run(): void
-  {
-    Activity::create(['description' => 'Update status Iza Makmur: KONFIRMASI -> SELESAI', 'type' => 'booking']);
-    Activity::create(['description' => 'Menghapus reservasi: Gilang Kamal (2026-03-06)', 'type' => 'booking']);
-  }
+        foreach ($activities as $activity) {
+            Activity::create($activity);
+        }
+    }
 }

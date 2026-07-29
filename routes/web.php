@@ -6,6 +6,7 @@ use App\Http\Controllers\BarberController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\SettingsController;
 
 Route::get('/', function () {
   return view('welcome');
@@ -65,5 +66,9 @@ Route::middleware(['auth'])->group(function() {
     Route::put('/booking/{appointment}/update-status', [AppointmentController::class, 'updateStatus'])
     ->name('booking.updateStatus');
 
+    // PENGATURAN AKUN ADMIN
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::patch('/settings/profile', [SettingsController::class, 'updateProfile'])->name('settings.update-profile');
+    Route::put('/settings/password', [SettingsController::class, 'updatePassword'])->name('settings.update-password');
   });
 });

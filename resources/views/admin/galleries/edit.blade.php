@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<h2 class="text-3xl font-semibold mb-6">
+<h2 class="text-3xl font-bold mb-6">
   Edit <span class="text-gold">Gambar</span>
 </h2>
 

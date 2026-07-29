@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex justify-between items-center mb-8">
-        <h2 class="text-3xl font-semibold">Daftar <span class="text-gold">Galeri</span></h2>
+        <h2 class="text-3xl font-bold">Daftar <span class="text-gold">Galeri</span></h2>
         <a href="{{ route('galleries.create') }}"
             class="bg-gold text-xs md:text-base text-slate-900 px-6 py-2 rounded-full font-bold hover:scale-105 transition transform">
             + Tambah Gambar

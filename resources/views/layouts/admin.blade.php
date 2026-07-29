@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin | Barbershop</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
   <style>
     /* Charcoal Dark background */
     body {
@@ -73,12 +73,13 @@
         <span class="text-3xl">✂</span> Barbershop
       </a>
 
-      <div class="hidden md:flex items-center space-x-2">
+      <div class="hidden md:flex items-center">
         <a href="/admin/dashboard" class="px-4 py-2 rounded-lg transition {{ request()->is('admin/dashboard') ? 'text-gold' : 'text-gray-300 hover:text-gold' }}">Dashboard</a>
         <a href="{{ route('barbers.index') }}" class="px-4 py-2 rounded-lg transition {{ request()->is('admin/barbers*') ? 'text-gold' : 'text-gray-300 hover:text-gold' }}">Staf</a>
         <a href="{{ route('galleries.index') }}" class="px-4 py-2 rounded-lg transition {{ request()->is('admin/galleries*') ? 'text-gold' : 'text-gray-300 hover:text-gold' }}">Galeri</a>
         <a href="{{ route('services.index') }}" class="px-4 py-2 rounded-lg transition {{ request()->is('admin/services*') ? 'text-gold' : 'text-gray-300 hover:text-gold' }}">Layanan</a>
         <a href="{{ route('booking.index') }}" class="px-6 py-2 rounded-lg transition {{ request()->is('admin/booking*') ? 'text-gold' : 'text-gray-300 hover:text-gold' }}">Reservasi</a>
+        <a href="{{ route('settings.index') }}" class="px-4 py-2 rounded-lg transition {{ request()->is('admin/settings*') ? 'text-gold font-semibold' : 'text-gray-300 hover:text-gold' }}">Pengaturan</a>
         <div class="h-6 w-px bg-gray-700 mx-2"></div>
         <form method="POST" action="{{ route('logout') }}">
           @csrf
@@ -117,6 +118,7 @@
         ['url' => route('barbers.index'), 'name' => 'Staf', 'pattern' => 'admin/barbers*'],
         ['url' => route('services.index'), 'name' => 'Layanan', 'pattern' => 'admin/services*'],
         ['url' => route('booking.index'), 'name' => 'Reservasi', 'pattern' => 'admin/booking*'],
+        ['url' => route('settings.index'), 'name' => 'Pengaturan Akun', 'pattern' => 'admin/settings*'],
         ];
         @endphp
 
@@ -177,33 +179,33 @@
     overlay.addEventListener('click', toggleMenu); // Klik area gelap untuk tutup
 
     $(document).ready(function() {
-    var table = $('#tabelPesanan').DataTable({
-    "dom": 'tp',
-    "ordering": false,
-    "pageLength": 10,
-    "language": {
-    "emptyTable": "Data tabel ini kosong!",
-    "paginate": {
-    "previous": "← Kembali",
-    "next": "Lanjut →"
-    }
-    },
-    "drawCallback": function(settings) {
-    var api = this.api();
-    var tableId = settings.sTableId;
-    var jumlahKolom = api.columns().header().length;
-    $('#' + tableId + ' .dataTables_empty')
-    .addClass('text-center p-12 text-slate-400 font-medium italic')
-    .attr('colspan', jumlahKolom);
-    },
-    "initComplete": function() {
-    // Ambil wrapper yang dibuat DataTables
-    var $wrapper = $('#tabelPesanan').closest('.dataTables_wrapper');
+      var table = $('#tabelPesanan').DataTable({
+        "dom": 'tp',
+        "ordering": false,
+        "pageLength": 10,
+        "language": {
+          "emptyTable": "Data tabel ini kosong!",
+          "paginate": {
+            "previous": "← Kembali",
+            "next": "Lanjut →"
+          }
+        },
+        "drawCallback": function(settings) {
+          var api = this.api();
+          var tableId = settings.sTableId;
+          var jumlahKolom = api.columns().header().length;
+          $('#' + tableId + ' .dataTables_empty')
+            .addClass('text-center p-12 text-slate-400 font-medium italic')
+            .attr('colspan', jumlahKolom);
+        },
+        "initComplete": function() {
+          // Ambil wrapper yang dibuat DataTables
+          var $wrapper = $('#tabelPesanan').closest('.dataTables_wrapper');
 
-    // Bungkus hanya bagian tabel (bukan paginate) dengan overflow-x-auto
-    $wrapper.find('table').wrap('<div style="overflow-x:auto;"></div>');
-    }
-    });
+          // Bungkus hanya bagian tabel (bukan paginate) dengan overflow-x-auto
+          $wrapper.find('table').wrap('<div style="overflow-x:auto;"></div>');
+        }
+      });
     });
   </script>
 

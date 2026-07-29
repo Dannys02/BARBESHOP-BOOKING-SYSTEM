@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://cdn.tailwindcss.com"></script>
   <title>Cek Status</title>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-slate-900 text-white flex items-center justify-center min-h-screen p-6">
@@ -17,7 +17,7 @@
       <div class="mb-4">
         <label class="block text-xs text-gray-400 mb-2 uppercase">Masukkan Nomor WhatsApp</label>
         <input type="text" name="customer_phone" placeholder="Contoh: 081234567890" required
-        class="w-full bg-slate-900 border border-gray-700 rounded-xl px-4 py-3 outline-none focus:border-gold">
+          class="w-full bg-slate-900 border border-gray-700 rounded-xl px-4 py-3 outline-none focus:border-gold">
       </div>
       <button type="submit" class="w-full bg-yellow-400 cursor-pointer text-slate-900 font-bold py-3 rounded-xl transition">
         Cek Sekarang
@@ -50,10 +50,11 @@
       Data tidak ditemukan. Pastikan nomor benar.
     </p>
     @endif
-    
+
     <div class="mt-8 text-center">
       <a href="/" class="text-gold text-sm underline">Kembali ke Beranda</a>
     </div>
   </div>
 </body>
+
 </html>

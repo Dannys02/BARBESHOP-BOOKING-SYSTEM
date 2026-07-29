@@ -10,18 +10,31 @@ use App\Models\Activity;
 
 class AppointmentController extends Controller
 {
-  public function index() {
-    $appointments = Appointment::with(['barber', 'service'])->orderBy('created_at', 'desc')->get();
+  public function index(Request $request)
+  {
+    $query = Appointment::with(['barber', 'service'])->orderBy('created_at', 'desc');
+
+    if ($request->has('search') && !empty($request->search)) {
+      $search = $request->search;
+      $query->where(function ($q) use ($search) {
+        $q->where('customer_name', 'like', '%' . $search . '%')
+          ->orWhere('customer_phone', 'like', '%' . $search . '%');
+      });
+    }
+
+    $appointments = $query->get();
     return view('admin.appointment.index', compact('appointments'));
   }
 
-  public function create() {
+  public function create()
+  {
     $barbers = Barber::all();
     $services = Service::all();
     return view('booking.create', compact('barbers', 'services'));
   }
 
-  public function store(Request $request) {
+  public function store(Request $request)
+  {
     $request->validate([
       'customer_name' => 'required',
       'customer_phone' => 'required',
@@ -35,18 +48,18 @@ class AppointmentController extends Controller
     $bookingTime = $request->booking_time . ':00';
 
     $isBooked = Appointment::where('barber_id', $request->barber_id)
-    ->where('booking_date', $request->booking_date)
-    ->where('booking_time', $bookingTime)
-    ->whereIn('status', ['pending', 'konfirmasi'])
-    ->exists();
+      ->where('booking_date', $request->booking_date)
+      ->where('booking_time', $bookingTime)
+      ->whereIn('status', ['pending', 'konfirmasi'])
+      ->exists();
 
     if ($isBooked) {
       return redirect()->back()->with('error', 'Pegawai yang dipilih sudah ada jadwal di jam tersebut. Pilih jam lain ya!')->withInput();
     }
 
     $isActiveBooking = Appointment::where('customer_phone', $request->customer_phone)
-    ->whereIn('status', ['pending', 'konfirmasi'])
-    ->exists();
+      ->whereIn('status', ['pending', 'konfirmasi'])
+      ->exists();
 
     if ($isActiveBooking) {
       return redirect()->back()->with('error', 'Nomor anda masih memiliki reservasi yang aktif. Selesaikan atau batalkan dulu ya!')->withInput();
@@ -59,23 +72,26 @@ class AppointmentController extends Controller
     return redirect()->back()->with('success', 'Booking berhasil! Cek status jadwal kamu. Kami tunggu kedatangannya.');
   }
 
-  public function cekStatusForm() {
+  public function cekStatusForm()
+  {
     return view('booking.cek-status'); // Tampilkan form input nomor HP
   }
 
-  public function cekStatusResult(Request $request) {
+  public function cekStatusResult(Request $request)
+  {
     $request->validate(['customer_phone' => 'required']);
 
     // Cari booking terakhir dari nomor HP tersebut
     $booking = Appointment::where('customer_phone', $request->customer_phone)
-    ->latest()
-    ->first();
+      ->latest()
+      ->first();
 
     return view('booking.cek-status', compact('booking'));
   }
 
 
-  public function updateStatus(Request $request, Appointment $appointment) {
+  public function updateStatus(Request $request, Appointment $appointment)
+  {
     // Prevent changing status if already 'batal'
     if ($appointment->status == 'batal') {
       return back()->with('error', 'Status batal tidak dapat diubah.');
@@ -95,7 +111,8 @@ class AppointmentController extends Controller
     return back()->with('success', 'Status jadwal berhasil diupdate!');
   }
 
-  public function destroy($id) {
+  public function destroy($id)
+  {
     $appointment = Appointment::findOrFail($id);
     $appointment->delete();
     $customer = $appointment->customer_name;
@@ -105,6 +122,4 @@ class AppointmentController extends Controller
 
     return redirect()->route('booking.index')->with('success', 'Data reservasi berhasil dihapus');
   }
-
 }
-?>

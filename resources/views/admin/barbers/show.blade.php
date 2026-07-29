@@ -7,7 +7,7 @@
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
     </svg>
   </a>
-  <h2 class="text-3xl font-semibold">Detail <span class="text-gold">Pegawai</span></h2>
+  <h2 class="text-3xl font-bold">Detail <span class="text-gold">Pegawai</span></h2>
 </div>
 
 <div class="bg-slate-800 rounded-3xl overflow-hidden border border-gray-700 shadow-2xl">

@@ -1,8 +1,14 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="flex justify-between items-center mb-8">
-  <h2 class="text-3xl font-semibold">Daftar <span class="text-gold">Reservasi</span></h2>
+<div class="flex sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+
+  <h2 class="text-3xl font-bold">Daftar <span class="text-gold">Reservasi</span></h2>
+  <div>
+    <input type="search" id="searchInput" value="{{ request('search') }}" placeholder="Cari nama / nomor HP..." 
+      class="w-full bg-slate-800 border border-gray-700 text-gray-200 placeholder-gray-400 text-sm rounded-lg focus:ring-gold focus:border-gold p-2.5 outline-none transition">
+  </div>
+
 </div>
 
 <div class="bg-slate-800 rounded-2xl border border-gray-700">
@@ -190,4 +196,35 @@ $pesan = "Halo Kak " . $appointment->customer_name . ", kami dari Barbershop tel
   </div>
 </div>
 @endif
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('searchInput');
+    let debounceTimer;
+
+    if (searchInput) {
+      // Pindahkan kursor ke ujung teks input jika ada pencarian sebelumnya
+      searchInput.focus();
+      const val = searchInput.value;
+      searchInput.value = '';
+      searchInput.value = val;
+
+      searchInput.addEventListener('input', function () {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          const url = new URL(window.location.href);
+          const keyword = searchInput.value.trim();
+
+          if (keyword) {
+            url.searchParams.set('search', keyword);
+          } else {
+            url.searchParams.delete('search');
+          }
+
+          window.location.href = url.toString();
+        }, 500); // Debounce delay 500ms
+      });
+    }
+  });
+</script>
 @endsection
