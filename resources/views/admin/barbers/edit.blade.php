@@ -1,49 +1,72 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="max-w-2xl mx-auto bg-slate-800 p-8 rounded-2xl border border-gray-700">
-  <h2 class="text-2xl font-bold mb-6 text-gold text-center">Edit Barber Baru</h2>
+<div class="max-w-2xl mx-auto space-y-6">
 
-  <form id="barberForm" action="{{ route('barbers.update', $barber->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-    @csrf
-    @method("PUT")
-    <div>
-      <label class="block text-gray-400 mb-2">Nama Lengkap</label>
-      <input type="text" name="name" value="{{ old('name', $barber->name) }}" class="w-full bg-slate-900 border border-gray-700 rounded-lg p-3 focus:border-gold focus:outline-none text-white" placeholder="Masukan Nama Lengkap">
-      @error("name")
-      <span class="mt-2 text-red-500 font-bold">{{ $message }}</span>
-      @enderror
+    <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div>
+            <p class="text-gold font-bold text-xs uppercase tracking-[0.2em] mb-1">Pembaruan Data</p>
+            <h1 class="text-2xl sm:text-3xl font-black text-white">Edit Profil <span class="text-gold">Kapster</span></h1>
+        </div>
+        <a href="{{ route('barbers.index') }}"
+            class="min-h-[44px] inline-flex items-center px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 text-xs font-bold uppercase tracking-wider hover:border-amber-400 hover:text-amber-400 transition">
+            Kembali
+        </a>
     </div>
 
-    <div>
-      <label class="block text-gray-400 mb-2">Bio / Spesialisasi</label>
-      <textarea name="bio" rows="4" class="w-full bg-slate-900 border border-gray-700 rounded-lg p-3 focus:border-gold focus:outline-none text-white" placeholder="Contoh: Fade Master with 5 years experience...">{{ old('bio', $barber->bio) }}</textarea>
-      @error("bio")
-      <span class="mt-2 text-red-500 font-bold">{{ $message }}</span>
-      @enderror
+    <div class="surface-card p-6 sm:p-8 rounded-2xl shadow-2xl">
+        <form id="barberForm" action="{{ route('barbers.update', $barber->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            @csrf
+            @method("PUT")
+
+            <div>
+                <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-200 mb-2">Nama Lengkap Kapster</label>
+                <input type="text" id="name" name="name" value="{{ old('name', $barber->name) }}" required
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3.5 focus:border-amber-400 outline-none text-white placeholder-slate-400 transition"
+                    placeholder="Masukkan nama lengkap kapster">
+                @error("name")
+                    <p class="mt-2 text-red-400 text-xs font-semibold" role="alert">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="bio" class="block text-xs font-bold uppercase tracking-wider text-slate-200 mb-2">Biografi &amp; Spesialisasi</label>
+                <textarea id="bio" name="bio" rows="4" required
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3.5 focus:border-amber-400 outline-none text-white placeholder-slate-400 transition"
+                    placeholder="Contoh: Spesialis potongan klasik dan penataan janggut">{{ old('bio', $barber->bio) }}</textarea>
+                @error("bio")
+                    <p class="mt-2 text-red-400 text-xs font-semibold" role="alert">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="photo" class="block text-xs font-bold uppercase tracking-wider text-slate-200 mb-2">Perbarui Foto Profil (Opsional)</label>
+                <input type="file" id="photo" name="photo"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-slate-300 text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-gold file:text-slate-950 file:font-extrabold hover:file:bg-amber-300 transition">
+                <p class="text-xs text-slate-400 mt-2">
+                    Format: JPG, PNG, JPEG (Maksimal 2MB). Biarkan kosong apabila tidak ingin mengganti foto saat ini.
+                </p>
+                @error("photo")
+                    <p class="mt-2 text-red-400 text-xs font-semibold" role="alert">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="pt-2">
+                <button id="submitBtn" type="submit"
+                    class="min-h-[48px] w-full bg-gold text-slate-950 py-3.5 rounded-xl font-extrabold uppercase tracking-wider text-xs sm:text-sm hover:bg-amber-300 transition">
+                    Simpan Perubahan Kapster
+                </button>
+            </div>
+        </form>
     </div>
 
-    <div>
-      <label class="block text-gray-400 mb-2">Foto</label>
-      <input type="file" name="photo" class="w-full bg-slate-900 border border-gray-700 rounded-lg p-2 text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-gold file:text-slate-900 hover:file:bg-yellow-500 cursor-pointer">
-      <p class="text-xs text-gray-500 mt-2 italic">
-        *Format: JPG, PNG, JPEG. Max 2MB. Biarkan kosong jika tidak ingin mengubah foto.
-      </p>
-      @error("photo")
-      <span class="mt-2 text-red-500 font-bold text-sm">{{ $message }}</span>
-      @enderror
-    </div>
-
-    <div class="pt-4">
-      <button id="submitBtn" type="submit" class="w-full bg-gold text-slate-900 py-3 rounded-lg font-bold hover:bg-yellow-500 transition shadow-lg shadow-gold/20">Simpan Barber</button>
-    </div>
-  </form>
 </div>
-@endsection
+
 <script>
-  document.getElementById('barberForm').onsubmit = function() {
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.classList.add('opacity-50', 'cursor-not-allowed');
-  }
+    document.getElementById('barberForm').addEventListener('submit', function() {
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.textContent = 'Menyimpan Perubahan...';
+    });
 </script>
+@endsection
