@@ -1,85 +1,90 @@
 # Heritage Grooming: Barbershop Booking & Queue Management System
 
-Aplikasi web reservasi kursi barbershop berbasis **Laravel 12** dan **Tailwind CSS** yang dirancang untuk menggantikan pencatatan antrean manual menjadi sistem penjadwalan terstruktur, bebas bentrok jadwal (*double-booking*), dan terintegrasi langsung dengan konfirmasi WhatsApp.
+[![English](https://img.shields.io/badge/Language-English-amber?style=for-the-badge)](./README.md)
+[![Bahasa Indonesia](https://img.shields.io/badge/Bahasa-Indonesia-0f172a?style=for-the-badge)](./README.id.md)
+
+> **Baca dokumentasi dalam Bahasa Indonesia:** [README.id.md](./README.id.md)
+
+A web-based barbershop seat reservation and queue management application built with **Laravel 12** and **Tailwind CSS**. It replaces manual walk-in queues and unorganized chat bookings with a structured, conflict-free scheduling system integrated with one-click WhatsApp confirmations.
 
 ---
 
-## Latar Belakang Masalah & Solusi
+## Problem Statement & Solution
 
-Banyak barbershop masih mengandalkan antrean datang langsung (*walk-in*) atau pencatatan manual melalui chat WhatsApp. Hal ini sering menimbulkan tiga masalah utama:
-1. **Pelanggan membuang waktu menunggu di lokasi** karena tidak tahu apakah kapster pilihannya sedang kosong atau penuh.
-2. **Jadwal bentrok (*double-booking*)** ketika dua pelanggan memesan kapster dan jam yang sama lewat chat yang belum sempat dibalas admin.
-3. **Spam atau reservasi fiktif** yang mengacaukan slot jam operasional harian.
+Many barbershops still rely on walk-in queues or manual WhatsApp chats to record appointments. This approach frequently leads to three operational bottlenecks:
+1. **Unpredictable Customer Wait Times:** Customers arrive without knowing whether their preferred barber is available or fully booked.
+2. **Double-Booking Conflicts:** Two customers often request the same barber and time slot via chat before an admin can manually cross-check the schedule.
+3. **Spam & Duplicate Reservations:** Unverified bookings can lock up prime operating hours and disrupt daily shop operations.
 
-**Heritage Grooming** menyelesaikan masalah tersebut melalui sistem reservasi terpusat:
-- Pelanggan dapat melihat daftar layanan, estimasi durasi, tarif transparan, dan profil kapster sebelum memesan kursi.
-- Sistem secara otomatis menolak pemesanan pada kapster dan jam yang sudah terisi (*anti-conflict validation*) serta membatasi satu nomor telepon hanya untuk satu reservasi aktif dalam satu waktu.
-- Pelanggan dapat melacak status reservasinya (`Pending`, `Konfirmasi`, `Selesai`, `Batal`) secara mandiri tanpa perlu membuat akun.
-- Admin mengelola seluruh antrean dari satu *sidebar dashboard* dan dapat mengirimkan pesan konfirmasi atau pembatalan ke WhatsApp pelanggan hanya dengan satu klik.
-
----
-
-## Fitur Utama
-
-### 1. Portal Pelanggan (Tanpa Perlu Login)
-- **Katalog Layanan & Kapster:** Menampilkan daftar layanan lengkap dengan harga, estimasi durasi pengerjaan, galeri hasil cukur, serta profil kapster.
-- **Reservasi Kursi Anti-Bentrok:** Formulir pemesanan dengan validasi ketersediaan jadwal kapster, pencegahan pemilihan jam yang sudah terlewat di hari yang sama, dan batasan satu reservasi aktif per nomor WhatsApp.
-- **Lacak Status Jadwal Mandiri:** Pelanggan cukup memasukkan nomor WhatsApp di halaman `/cek-status` untuk memantau status reservasi terbaru mereka.
-- **Keamanan Form Publik:** Dilengkapi Google reCAPTCHA v2 dan *rate limiting* (`throttle`) untuk mencegah spam bot maupun *brute-force* nomor telepon.
-
-### 2. Panel Operasional Admin
-- **Dashboard & Activity Log:** Ringkasan jumlah kapster, layanan aktif, total antrean reservasi, serta riwayat aktivitas admin secara *real-time*.
-- **Manajemen Antrean & Integrasi WhatsApp:** Mengubah status reservasi (`Pending` -> `Konfirmasi` -> `Selesai` / `Batal`) sekaligus menghasilkan tautan pesan WhatsApp otomatis berisi detail jadwal pelanggan.
-- **Manajemen Data Master (CRUD):**
-  - **Kapster:** Tambah, ubah, lihat detail, dan hapus data kapster beserta unggahan foto profil.
-  - **Layanan:** Kelola nama layanan, harga, dan durasi pengerjaan (menit).
-  - **Galeri Portofolio:** Unggah dan kelola foto hasil potongan rambut (dibatasi maksimal 5 foto utama agar performa halaman tetap ringan).
-- **Pengaturan Akun & Keamanan:** Pembaruan profil admin, pergantian kata sandi, dan URL login tersembunyi (`/panel-rahasia-barbershop/login/masuk`).
+**Heritage Grooming** solves these issues through a centralized booking workflow:
+- Customers can browse service catalogs, transparent pricing, estimated durations, and barber profiles before reserving a seat.
+- The system enforces **strict conflict prevention**: it blocks overlapping bookings for the same barber, date, and hour, prevents selecting past hours on same-day bookings, and restricts each phone number to one active reservation at a time.
+- Customers can track their booking status (`Pending`, `Confirmed`, `Completed`, `Cancelled`) anytime using their WhatsApp number without creating an account.
+- Admins manage the entire queue from a dedicated sidebar dashboard and send pre-filled WhatsApp confirmation or cancellation messages with a single click.
 
 ---
 
-## Teknologi yang Digunakan
+## Key Features
 
-| Kategori | Teknologi |
+### 1. Customer Portal (Account-Free Experience)
+- **Service & Barber Catalog:** Displays services with pricing, duration in minutes, haircut portfolio gallery, and barber profiles.
+- **Conflict-Free Seat Reservation:** Interactive booking form with real-time validation against double-booking, past-hour selection on the current day, and duplicate active reservations per phone number.
+- **Self-Service Status Tracker:** Customers can check their latest appointment status at `/cek-status` simply by entering their WhatsApp number.
+- **Public Endpoint Security:** Protected by Google reCAPTCHA v2 and route rate limiting (`throttle`) to prevent bot spam and phone number enumeration.
+
+### 2. Admin Operations Dashboard
+- **Overview & Activity Log:** Tracks total barbers, active services, reservation counts, and a chronological audit log of admin actions.
+- **Queue Management & WhatsApp Integration:** Update appointment statuses (`Pending` -> `Konfirmasi` -> `Selesai` / `Batal`) and generate instant WhatsApp chat links pre-populated with customer appointment details.
+- **Master Data Management (CRUD):**
+  - **Barbers:** Create, view, update, and delete barber profiles with photo uploads.
+  - **Services:** Manage service names, prices, and durations.
+  - **Portfolio Gallery:** Upload and manage haircut showcase photos (capped at 5 featured photos to keep landing page performance fast).
+- **Account & Access Security:** Admin profile and password management, disabled public user registration, and a custom obscured admin login URL (`/panel-rahasia-barbershop/login/masuk`).
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
 | :--- | :--- |
 | **Backend Framework** | Laravel 12 (PHP 8.2+) |
 | **Frontend & Templating** | Blade Templates, Tailwind CSS, Vite |
 | **Database** | MySQL / SQLite |
-| **Keamanan & Proteksi** | Laravel Breeze Auth, Google reCAPTCHA (`anhskohbo/no-captcha`), Route Rate Limiting |
+| **Security & Protection** | Laravel Breeze Auth, Google reCAPTCHA (`anhskohbo/no-captcha`), Route Rate Limiting |
 
 ---
 
-## Cara Mencoba Aplikasi di Lokal
+## Local Setup & Installation
 
-### Prasyarat
-Pastikan perangkat Anda sudah terpasang:
+### Prerequisites
+Make sure you have the following installed on your machine:
 - **PHP** >= 8.2
 - **Composer**
 - **Node.js & NPM**
-- **MySQL** (atau SQLite)
+- **MySQL** (or SQLite)
 
-### Langkah Instalasi
+### Step-by-Step Installation
 
-1. **Clone repositori dan masuk ke direktori proyek**
+1. **Clone the repository and navigate into the project directory**
    ```bash
-   git clone <url-repository-anda>
+   git clone <your-repository-url>
    cd BARBESHOP-BOOKING-SYSTEM
    ```
 
-2. **Instal dependensi PHP dan JavaScript**
+2. **Install PHP and JavaScript dependencies**
    ```bash
    composer install
    npm install
    ```
 
-3. **Salin file konfigurasi `.env` dan buat *application key***
+3. **Copy the environment configuration file and generate the application key**
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
 
-4. **Konfigurasi Database & Google reCAPTCHA di `.env`**
-   Sesuaikan koneksi database Anda di file `.env`:
+4. **Configure Database & Google reCAPTCHA in `.env`**
+   Update your database credentials in `.env`:
    ```env
    DB_CONNECTION=mysql
    DB_HOST=127.0.0.1
@@ -88,52 +93,52 @@ Pastikan perangkat Anda sudah terpasang:
    DB_USERNAME=root
    DB_PASSWORD=
    ```
-   Untuk pengujian lokal fitur Google reCAPTCHA v2, Anda dapat menggunakan *test keys* resmi dari Google di `.env`:
+   For local testing of Google reCAPTCHA v2, add Google's official test keys to your `.env` file:
    ```env
    NOCAPTCHA_SITEKEY=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
    NOCAPTCHA_SECRET=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
    ```
 
-5. **Jalankan migrasi database beserta data awal (*Seeder*)**
+5. **Run database migrations and seed initial sample data**
    ```bash
    php artisan migrate --seed
    ```
 
-6. **Hubungkan *storage symlink* dan *build* aset frontend**
+6. **Create the storage symlink and build frontend assets**
    ```bash
    php artisan storage:link
    npm run build
    ```
 
-7. **Jalankan server lokal**
+7. **Start the local development server**
    ```bash
    php artisan serve
    ```
 
 ---
 
-## Panduan Pengujian (Demo Flow)
+## How to Test the Application (Demo Flow)
 
-Setelah server berjalan di `http://127.0.0.1:8000`, Anda dapat langsung menguji kedua sisi aplikasi:
+Once the server is running at `http://127.0.0.1:8000`, you can test both the customer and admin workflows:
 
-### A. Menguji sebagai Pelanggan
-1. Buka **Halaman Utama**: `http://127.0.0.1:8000`
-2. Klik tombol **Reservasi** di navigasi atas atau buka `http://127.0.0.1:8000/booking/create`.
-3. Isi nama, nomor WhatsApp (misal: `081234567890`), pilih kapster, layanan, tanggal, serta jam kedatangan, lalu kirim formulir.
-4. Buka halaman **Lacak Jadwal**: `http://127.0.0.1:8000/cek-status` dan masukkan nomor `081234567890` untuk melihat status reservasi Anda.
+### A. Testing as a Customer
+1. Open the **Landing Page**: `http://127.0.0.1:8000`
+2. Click **Reservasi** in the top navigation bar or visit `http://127.0.0.1:8000/booking/create`.
+3. Fill in your name, WhatsApp number (e.g., `081234567890`), preferred barber, service, date, and arrival time, then submit the form.
+4. Visit the **Status Tracker**: `http://127.0.0.1:8000/cek-status` and enter `081234567890` to inspect your reservation status.
 
-### B. Menguji sebagai Admin
-1. Buka URL **Login Admin**:
+### B. Testing as an Admin
+1. Open the **Admin Login URL**:
    ```text
    http://127.0.0.1:8000/panel-rahasia-barbershop/login/masuk
    ```
-2. Masuk menggunakan kredensial bawaan hasil *seeder*:
+2. Sign in using the default seeded credentials:
    - **Email:** `admin@barbershop.com`
    - **Password:** `password`
-3. Masuk ke menu **Jadwal Reservasi** (`/admin/booking`), ubah status pesanan pelanggan menjadi **Konfirmasi**, lalu klik ikon WhatsApp untuk menguji pembuatan pesan konfirmasi otomatis.
+3. Navigate to **Jadwal Reservasi** (`/admin/booking`), update a customer's booking status to **Konfirmasi**, and click the WhatsApp button to test the automated confirmation message generator.
 
 ---
 
-## Pengembang
+## Author
 
-Dikembangkan oleh **Dannys Martha Favrillia** sebagai proyek Rekayasa Perangkat Lunak (RPL) dan portofolio pengembangan aplikasi web *full-stack* Laravel.
+Developed by **Dannys Martha Favrillia** as a Software Engineering (RPL) project and full-stack Laravel web development portfolio.
