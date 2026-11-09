@@ -25,10 +25,10 @@ Route::get('/', function() {
 });
 
 Route::get('/booking/create', [AppointmentController::class, 'create'])->name('booking.create');
-Route::post('/booking', [AppointmentController::class, 'store'])->name('booking.store');
+Route::post('/booking', [AppointmentController::class, 'store'])->middleware('throttle:10,1')->name('booking.store');
 // USER CEK STATUS
 Route::get('/cek-status', [AppointmentController::class, 'cekStatusForm'])->name('booking.cekStatusForm');
-Route::post('/cek-status', [AppointmentController::class, 'cekStatusResult'])->name('booking.cekStatusResult');
+Route::post('/cek-status', [AppointmentController::class, 'cekStatusResult'])->middleware('throttle:15,1')->name('booking.cekStatusResult');
 
 Route::middleware(['auth'])->group(function() {
   Route::prefix("admin")->group(function() {
@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function() {
     Route::resource('galleries', GalleryController::class);
 
     // APPOINTMENTS SYSTEM
-    Route::resource("/booking", AppointmentController::class)->except(["show"]);
+    Route::resource("/booking", AppointmentController::class)->only(["index", "destroy"]);
 
     // Custom route untuk update status
     Route::put('/booking/{appointment}/update-status', [AppointmentController::class, 'updateStatus'])

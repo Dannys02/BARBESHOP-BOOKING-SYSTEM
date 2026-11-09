@@ -36,14 +36,21 @@ class AppointmentController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'customer_name' => 'required',
-      'customer_phone' => 'required',
-      'barber_id' => 'required',
-      'service_id' => 'required',
+      'customer_name' => 'required|string|max:100',
+      'customer_phone' => ['required', 'string', 'min:9', 'max:20', 'regex:/^[0-9+\-\s]+$/'],
+      'barber_id' => 'required|exists:barbers,id',
+      'service_id' => 'required|exists:services,id',
       'booking_date' => 'required|date|after_or_equal:today',
-      'booking_time' => 'required',
+      'booking_time' => 'required|in:09:00,10:00,11:00,12:00,13:00,14:00,15:00,16:00,17:00,18:00,19:00,20:00',
       'g-recaptcha-response' => 'required|captcha',
     ]);
+
+    if ($request->booking_date === now()->toDateString()) {
+      $selectedDateTime = \Carbon\Carbon::createFromFormat('Y-m-d H:i', $request->booking_date . ' ' . $request->booking_time);
+      if ($selectedDateTime->isPast()) {
+        return redirect()->back()->with('error', 'Jam kedatangan yang dipilih untuk hari ini sudah terlewat. Silakan pilih jam berikutnya.')->withInput();
+      }
+    }
 
     $bookingTime = $request->booking_time . ':00';
 
@@ -65,8 +72,15 @@ class AppointmentController extends Controller
       return redirect()->back()->with('error', 'Nomor anda masih memiliki reservasi yang aktif. Selesaikan atau batalkan dulu ya!')->withInput();
     }
 
-    $data = $request->all();
+    $data = $request->only([
+      'customer_name',
+      'customer_phone',
+      'barber_id',
+      'service_id',
+      'booking_date',
+    ]);
     $data['booking_time'] = $bookingTime;
+    $data['status'] = 'pending';
     Appointment::create($data);
 
     return redirect()->back()->with('success', 'Booking berhasil! Cek status jadwal kamu. Kami tunggu kedatangannya.');
@@ -79,7 +93,9 @@ class AppointmentController extends Controller
 
   public function cekStatusResult(Request $request)
   {
-    $request->validate(['customer_phone' => 'required']);
+    $request->validate([
+      'customer_phone' => ['required', 'string', 'min:9', 'max:20', 'regex:/^[0-9+\-\s]+$/'],
+    ]);
 
     // Cari booking terakhir dari nomor HP tersebut
     $booking = Appointment::where('customer_phone', $request->customer_phone)
@@ -92,6 +108,10 @@ class AppointmentController extends Controller
 
   public function updateStatus(Request $request, Appointment $appointment)
   {
+    $request->validate([
+      'status' => 'required|in:pending,konfirmasi,selesai,batal',
+    ]);
+
     // Prevent changing status if already 'batal'
     if ($appointment->status == 'batal') {
       return back()->with('error', 'Status batal tidak dapat diubah.');

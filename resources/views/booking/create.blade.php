@@ -160,6 +160,16 @@
                 </div>
             @endif
 
+            @if($errors->any())
+                <div class="bg-red-950/90 text-red-200 p-4 rounded-xl mb-6 border border-red-400/50 font-medium text-sm" role="alert">
+                    <ul class="list-disc list-inside space-y-1">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ url('/booking') }}" method="POST" id="booking-form" class="surface-card rounded-2xl p-6 sm:p-10 shadow-2xl">
                 @csrf
 

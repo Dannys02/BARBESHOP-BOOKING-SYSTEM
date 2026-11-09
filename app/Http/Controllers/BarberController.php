@@ -47,7 +47,7 @@ class BarberController extends Controller {
 
     Activity::log("Menambahkan barber baru: '$request->name'", "barber");
 
-    return redirect()->route("barbers.index")->with("succes", "Barber berhasil ditambahkan!");
+    return redirect()->route("barbers.index")->with("success", "Barber berhasil ditambahkan!");
   }
 
   public function edit(Barber $barber) {
@@ -118,6 +118,6 @@ class BarberController extends Controller {
     
     Activity::log("Menghapus barber: '$barber->name' dari sistem", "barber");
 
-    return redirect()->route("barbers.index")->with("succes", "Barber berhasil dihapus!");
+    return redirect()->route("barbers.index")->with("success", "Barber berhasil dihapus!");
   }
 }

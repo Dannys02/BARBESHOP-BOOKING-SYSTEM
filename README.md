@@ -1,167 +1,139 @@
-# 💇 Barbershop Booking System
+# Heritage Grooming: Barbershop Booking & Queue Management System
 
-Sistem booking online untuk barbershop yang memungkinkan pelanggan memesan layanan secara online.
-
----
-
-## 📌 Deskripsi Singkat
-
-Website ini dibuat sebagai project **Rekayasa Perangkat Lunak (RPL)** untuk menciptakan platform yang mempermudah pelanggan memesan layanan barbershop. Pengguna dapat melihat daftar barbershop, memilih service yang tersedia, dan membuat booking dengan barbershop pilihan mereka. Admin dapat mengelola data barbershop, service, dan melihat history booking.
+Aplikasi web reservasi kursi barbershop berbasis **Laravel 12** dan **Tailwind CSS** yang dirancang untuk menggantikan pencatatan antrean manual menjadi sistem penjadwalan terstruktur, bebas bentrok jadwal (*double-booking*), dan terintegrasi langsung dengan konfirmasi WhatsApp.
 
 ---
 
-## ✨ Fitur Utama
+## Latar Belakang Masalah & Solusi
 
-- **Sistem Login & Register** - User dapat membuat akun untuk menggunakan aplikasi
-- **User** - Melihat status booking sesuai nomor telepon
-- **Daftar Service** - Menampilkan service apa saja yang tersedia
-- **Jadwal Barber** - Melihat ketersediaan barbershop
-- **Booking Appointment** - User dapat membuat booking dengan memilih barber, service, dan tanggal
-- **Admin Dashboard** - Mengelola data barbershop, service, dan appointment
-- **Galeri Portfolio** - Menampilkan portfolio barbershop
-- **Activity Log** - Mencatat aktivitas yang terjadi di sistem
+Banyak barbershop masih mengandalkan antrean datang langsung (*walk-in*) atau pencatatan manual melalui chat WhatsApp. Hal ini sering menimbulkan tiga masalah utama:
+1. **Pelanggan membuang waktu menunggu di lokasi** karena tidak tahu apakah kapster pilihannya sedang kosong atau penuh.
+2. **Jadwal bentrok (*double-booking*)** ketika dua pelanggan memesan kapster dan jam yang sama lewat chat yang belum sempat dibalas admin.
+3. **Spam atau reservasi fiktif** yang mengacaukan slot jam operasional harian.
 
----
-
-## 🛠️ Teknologi yang Digunakan
-
-| Aspek              | Teknologi                 |
-| ------------------ | ------------------------- |
-| **Backend**        | Laravel 11                |
-| **Frontend**       | Blade Template, HTML, CSS |
-| **Styling**        | Tailwind CSS              |
-| **Database**       | MySQL                     |
-| **Authentication** | Laravel Auth              |
-
-Teknologi ini dipilih karena Laravel menyediakan struktur yang jelas dan banyak tools built-in yang memudahkan development.
+**Heritage Grooming** menyelesaikan masalah tersebut melalui sistem reservasi terpusat:
+- Pelanggan dapat melihat daftar layanan, estimasi durasi, tarif transparan, dan profil kapster sebelum memesan kursi.
+- Sistem secara otomatis menolak pemesanan pada kapster dan jam yang sudah terisi (*anti-conflict validation*) serta membatasi satu nomor telepon hanya untuk satu reservasi aktif dalam satu waktu.
+- Pelanggan dapat melacak status reservasinya (`Pending`, `Konfirmasi`, `Selesai`, `Batal`) secara mandiri tanpa perlu membuat akun.
+- Admin mengelola seluruh antrean dari satu *sidebar dashboard* dan dapat mengirimkan pesan konfirmasi atau pembatalan ke WhatsApp pelanggan hanya dengan satu klik.
 
 ---
 
-## 👤 Peran Saya dalam Project
+## Fitur Utama
 
-Saya adalah developer utama yang mengerjakan **~80-90%** dari project ini, mulai dari:
+### 1. Portal Pelanggan (Tanpa Perlu Login)
+- **Katalog Layanan & Kapster:** Menampilkan daftar layanan lengkap dengan harga, estimasi durasi pengerjaan, galeri hasil cukur, serta profil kapster.
+- **Reservasi Kursi Anti-Bentrok:** Formulir pemesanan dengan validasi ketersediaan jadwal kapster, pencegahan pemilihan jam yang sudah terlewat di hari yang sama, dan batasan satu reservasi aktif per nomor WhatsApp.
+- **Lacak Status Jadwal Mandiri:** Pelanggan cukup memasukkan nomor WhatsApp di halaman `/cek-status` untuk memantau status reservasi terbaru mereka.
+- **Keamanan Form Publik:** Dilengkapi Google reCAPTCHA v2 dan *rate limiting* (`throttle`) untuk mencegah spam bot maupun *brute-force* nomor telepon.
 
-- ✅ Merancang database schema dan membuat migrations
-- ✅ Membuat models dan relationships (Barber, Service, Appointment, User, dll)
-- ✅ Mengimplementasikan CRUD operations di Controllers
-- ✅ Membuat view dan validasi form
-- ✅ Styling dengan Tailwind CSS
-- ✅ Debugging dan fixing errors dengan bantuan AI
-
-Sisanya adalah template default Laravel dan reference dari dokumentasi.
-
----
-
-## 📚 Hal yang Saya Pahami dari Project Ini
-
-1. **CRUD Operations** - Create, Read, Update, Delete adalah fondasi aplikasi web
-2. **Database Relationships** - Hubungan antar tabel (One-to-Many) seperti banyak booking bisa terkait ke satu barber, tapi 1 booking cuma punya 1 barber
-3. **MVC Architecture** - Model, View, Controller dan bagaimana mereka bekerja bersama
-4. **Laravel Basics** - Routing, Controllers, Eloquent ORM, Blade Template
-5. **HTML & CSS** - Struktur halaman dan styling dengan Tailwind CSS
-6. **Form Validation** - Validasi input dari user sebelum disimpan ke database
-7. **Authentication** - Sistem login dan proteksi halaman agar hanya user tertentu yang bisa akses
-
-Saya masih **sedang belajar** dan belum expert di beberapa area, tapi sudah cukup mengerti untuk membuat aplikasi CRUD dasar yang fungsional.
+### 2. Panel Operasional Admin
+- **Dashboard & Activity Log:** Ringkasan jumlah kapster, layanan aktif, total antrean reservasi, serta riwayat aktivitas admin secara *real-time*.
+- **Manajemen Antrean & Integrasi WhatsApp:** Mengubah status reservasi (`Pending` -> `Konfirmasi` -> `Selesai` / `Batal`) sekaligus menghasilkan tautan pesan WhatsApp otomatis berisi detail jadwal pelanggan.
+- **Manajemen Data Master (CRUD):**
+  - **Kapster:** Tambah, ubah, lihat detail, dan hapus data kapster beserta unggahan foto profil.
+  - **Layanan:** Kelola nama layanan, harga, dan durasi pengerjaan (menit).
+  - **Galeri Portofolio:** Unggah dan kelola foto hasil potongan rambut (dibatasi maksimal 5 foto utama agar performa halaman tetap ringan).
+- **Pengaturan Akun & Keamanan:** Pembaruan profil admin, pergantian kata sandi, dan URL login tersembunyi (`/panel-rahasia-barbershop/login/masuk`).
 
 ---
 
-## 🤖 Catatan tentang AI dan Bantuan
+## Teknologi yang Digunakan
 
-**Bagian yang dibantu AI:**
-
-- Debugging ketika ada error yang sulit dipahami
-- Penjelasan konsep yang tidak jelas dari dokumentasi
-- Refactoring kode agar lebih rapi
-
-**Bagian yang dikerjakan sendiri:**
-
-- Logic dan alur sistem
-- Database design
-- Implementasi fitur
-- Styling dan UI
-
-**Keterbatasan yang Saya Ketahui:**
-
-- Belum ada sistem notifikasi real-time
-- Belum ada integrasi payment gateway
-- Belum ada fitur reschedule appointment
-- Security masih dasar (hanya Laravel Auth default)
-- Testing belum lengkap
+| Kategori | Teknologi |
+| :--- | :--- |
+| **Backend Framework** | Laravel 12 (PHP 8.2+) |
+| **Frontend & Templating** | Blade Templates, Tailwind CSS, Vite |
+| **Database** | MySQL / SQLite |
+| **Keamanan & Proteksi** | Laravel Breeze Auth, Google reCAPTCHA (`anhskohbo/no-captcha`), Route Rate Limiting |
 
 ---
 
-## 🚀 Cara Menjalankan Project
+## Cara Mencoba Aplikasi di Lokal
 
-### Prerequisites
+### Prasyarat
+Pastikan perangkat Anda sudah terpasang:
+- **PHP** >= 8.2
+- **Composer**
+- **Node.js & NPM**
+- **MySQL** (atau SQLite)
 
-- PHP >= 8.2
-- Composer
-- MySQL
-- Node.js & NPM (untuk build assets)
+### Langkah Instalasi
 
-### Langkah-Langkah
+1. **Clone repositori dan masuk ke direktori proyek**
+   ```bash
+   git clone <url-repository-anda>
+   cd BARBESHOP-BOOKING-SYSTEM
+   ```
 
-1. **Clone repository** (atau extract folder project)
+2. **Instal dependensi PHP dan JavaScript**
+   ```bash
+   composer install
+   npm install
+   ```
 
-```bash
-cd BARBESHOP-BOOKING-SYSTEM
-```
+3. **Salin file konfigurasi `.env` dan buat *application key***
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-2. **Install dependencies**
+4. **Konfigurasi Database & Google reCAPTCHA di `.env`**
+   Sesuaikan koneksi database Anda di file `.env`:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=barbeshop_system
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+   Untuk pengujian lokal fitur Google reCAPTCHA v2, Anda dapat menggunakan *test keys* resmi dari Google di `.env`:
+   ```env
+   NOCAPTCHA_SITEKEY=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+   NOCAPTCHA_SECRET=6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+   ```
 
-```bash
-composer install
-npm install
-```
+5. **Jalankan migrasi database beserta data awal (*Seeder*)**
+   ```bash
+   php artisan migrate --seed
+   ```
 
-3. **Setup environment**
+6. **Hubungkan *storage symlink* dan *build* aset frontend**
+   ```bash
+   php artisan storage:link
+   npm run build
+   ```
 
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
-4. **Konfigurasi database di `.env`**
-
-```
-DB_DATABASE=barbeshop_system
-DB_USERNAME=root
-DB_PASSWORD=
-```
-
-5. **Jalankan migrations**
-
-```bash
-php artisan migrate --seed
-```
-
-6. **Build assets**
-
-```bash
-npm run build
-```
-
-7. **Jalankan development server**
-
-```bash
-php artisan serve
-```
-
-8. **Akses aplikasi**
-
-- User: `http://localhost:8000`
-- Admin: Login dengan akun admin (sesuai seeder)
-
----
-
-## 📝 Catatan Pengembangan
-
-- Project ini dibuat sebagai tugas RPL, fokus pada fungsionalitas dasar
-- Saya masih belajar, jadi ada kemungkinan ada improve yang bisa dilakukan
-- Welcome untuk feedback dan suggestions
-- Jika ada bug, silakan buat issue atau hubungi saya
+7. **Jalankan server lokal**
+   ```bash
+   php artisan serve
+   ```
 
 ---
 
-**Dibuat oleh Dannys Martha Favrillia, siswa RPL** 👨‍💻
+## Panduan Pengujian (Demo Flow)
+
+Setelah server berjalan di `http://127.0.0.1:8000`, Anda dapat langsung menguji kedua sisi aplikasi:
+
+### A. Menguji sebagai Pelanggan
+1. Buka **Halaman Utama**: `http://127.0.0.1:8000`
+2. Klik tombol **Reservasi** di navigasi atas atau buka `http://127.0.0.1:8000/booking/create`.
+3. Isi nama, nomor WhatsApp (misal: `081234567890`), pilih kapster, layanan, tanggal, serta jam kedatangan, lalu kirim formulir.
+4. Buka halaman **Lacak Jadwal**: `http://127.0.0.1:8000/cek-status` dan masukkan nomor `081234567890` untuk melihat status reservasi Anda.
+
+### B. Menguji sebagai Admin
+1. Buka URL **Login Admin**:
+   ```text
+   http://127.0.0.1:8000/panel-rahasia-barbershop/login/masuk
+   ```
+2. Masuk menggunakan kredensial bawaan hasil *seeder*:
+   - **Email:** `admin@barbershop.com`
+   - **Password:** `password`
+3. Masuk ke menu **Jadwal Reservasi** (`/admin/booking`), ubah status pesanan pelanggan menjadi **Konfirmasi**, lalu klik ikon WhatsApp untuk menguji pembuatan pesan konfirmasi otomatis.
+
+---
+
+## Pengembang
+
+Dikembangkan oleh **Dannys Martha Favrillia** sebagai proyek Rekayasa Perangkat Lunak (RPL) dan portofolio pengembangan aplikasi web *full-stack* Laravel.
