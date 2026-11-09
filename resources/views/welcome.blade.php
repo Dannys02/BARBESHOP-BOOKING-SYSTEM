@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="id" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barbershop - Classic & Modern Men's Haircut</title>
-    <meta name="description" content="Temukan kenyamanan dan gaya rambut terbaik di Barbershop. Sentuhan profesional untuk pria yang menghargai detail dan kualitas.">
+    <title>Heritage Grooming &amp; Pangkas Rambut Pria</title>
+    <meta name="description" content="Kenyamanan dan gaya rambut pria presisi dengan sentuhan klasik. Reservasi kursi kapster dan lacak status jadwal Anda secara langsung.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="{{ asset('assets/img/Home.webp') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+    <link rel="preload" as="image" href="{{ asset('assets/img/Home.webp') }}" fetchpriority="high">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
         rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
     <style>
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
             background-color: #0f172a;
         }
 
@@ -26,353 +26,774 @@
             background-color: #fbbf24;
         }
 
-        .glass {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .border-gold {
+            border-color: #fbbf24;
+        }
+
+        .nav-glass {
+            background-color: rgba(2, 6, 23, 0.96);
+        }
+
+        @media (min-width: 1024px) {
+            .nav-glass {
+                background-color: rgba(2, 6, 23, 0.9);
+                backdrop-filter: blur(8px);
+            }
+        }
+
+        .surface-card {
+            background-color: #1e293b;
+            border: 1px solid rgba(251, 191, 36, 0.18);
+        }
+
+        .surface-dark {
+            background-color: #020617;
+            border: 1px solid rgba(251, 191, 36, 0.22);
+        }
+
+        .cv-auto {
+            content-visibility: auto;
+            contain-intrinsic-size: 1px 650px;
         }
 
         .from-bottom {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-out;
+            transform: translate3d(0, 24px, 0);
+            transition: opacity 0.55s ease-out, transform 0.55s ease-out;
         }
 
         .from-bottom.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
         }
     </style>
 </head>
 
-<body class="text-gray-200">
+<body class="text-slate-200 antialiased selection:bg-amber-400 selection:text-slate-950">
 
-    <nav class="fixed w-full z-50 glass">
-        <div class="px-6 md:px-12 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-extrabold tracking-tighter text-gold uppercase">
-                ✂ Barbershop
-            </a>
+    <header class="fixed top-0 inset-x-0 z-50">
+        <!-- Garis Ornamen Atas -->
+        <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-amber-400/70 to-transparent"></div>
 
-            <div class="hidden md:flex items-center space-x-4 text-sm font-semibold uppercase tracking-widest">
-                <a href="#" class="hover:text-yellow-500 transition">Beranda</a>
-                <a href="#services" class="hover:text-yellow-500 transition">Layanan</a>
-                <a href="#gallery" class="hover:text-yellow-500 transition">Galeri</a>
-                <a href="#barbers" class="hover:text-yellow-500 transition">Barber</a>
-                <a href="{{ route('booking.create') }}" class="hover:text-yellow-500 transition">
-                    Booking Sekarang
-                </a>
-                <a href="/cek-status"
-                    class="border border-gold bg-transparent text-white px-6 py-2 rounded-full hover:bg-white/10 transition">
-                    Cek Status Jadwal
-                </a>
+        <nav aria-label="Navigasi Utama" class="nav-glass border-b border-amber-400/25 shadow-2xl">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+                <!-- Desktop Split-Center Medallion Layout -->
+                <div class="hidden lg:grid lg:grid-cols-[1fr_auto_1fr] items-center h-20">
+
+                    <!-- Sayap Kiri: Navigasi Eksplorasi -->
+                    <div class="flex items-center justify-end gap-6 xl:gap-8 pr-8 xl:pr-12">
+                        <a href="#beranda"
+                            class="min-h-[44px] inline-flex items-center px-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-200 hover:text-amber-400 active:text-amber-300 transition-colors">
+                            Beranda
+                        </a>
+                        <span class="text-amber-400/40 text-[10px] select-none" aria-hidden="true">◆</span>
+                        <a href="#services"
+                            class="min-h-[44px] inline-flex items-center px-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-200 hover:text-amber-400 active:text-amber-300 transition-colors">
+                            Layanan
+                        </a>
+                        <span class="text-amber-400/40 text-[10px] select-none" aria-hidden="true">◆</span>
+                        <a href="#gallery"
+                            class="min-h-[44px] inline-flex items-center px-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-200 hover:text-amber-400 active:text-amber-300 transition-colors">
+                            Galeri
+                        </a>
+                    </div>
+
+                    <!-- Pusat Horizontal & Vertikal: Medali Bundar Sempurna -->
+                    <div class="flex items-center justify-center">
+                        <a href="#beranda" aria-label="Kembali ke Beranda"
+                            class="group relative flex items-center justify-center w-14 h-14 rounded-full bg-slate-950 border-2 border-amber-400/70 shadow-md hover:border-amber-400 active:scale-95 transition-all duration-300">
+                            <span class="absolute inset-1 rounded-full border border-amber-400/25 pointer-events-none" aria-hidden="true"></span>
+                            <img src="{{ asset('assets/img/logo.png') }}"
+                                alt="Logo Emblem"
+                                width="144"
+                                height="120"
+                                decoding="async"
+                                class="w-9 h-9 object-contain group-hover:scale-105 transition-transform duration-300">
+                        </a>
+                    </div>
+
+                    <!-- Sayap Kanan: Kapster, Lacak Jadwal & Reservasi -->
+                    <div class="flex items-center justify-start gap-4 xl:gap-6 pl-8 xl:pl-12">
+                        <a href="#barbers"
+                            class="min-h-[44px] inline-flex items-center px-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-200 hover:text-amber-400 active:text-amber-300 transition-colors">
+                            Kapster
+                        </a>
+
+                        <span class="h-4 w-px bg-slate-700/80" aria-hidden="true"></span>
+
+                        <a href="{{ route('booking.cekStatusForm') }}"
+                            class="min-h-[44px] inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-900/90 border border-slate-700 text-xs font-bold uppercase tracking-[0.14em] text-slate-200 hover:border-amber-400/60 hover:text-amber-400 active:bg-slate-800 transition-all">
+                            <svg class="w-4 h-4 text-amber-400 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>Lacak Jadwal</span>
+                        </a>
+
+                        <a href="{{ url('/booking/create') }}"
+                            class="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gold text-slate-950 text-xs font-extrabold uppercase tracking-[0.15em] hover:bg-amber-300 active:scale-95 transition-all">
+                            <svg class="w-4 h-4 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <span>Reservasi</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile & Tablet Bar: Aksi Cepat + Logo Bundar Tengah + Tombol Menu -->
+                <div class="grid grid-cols-3 lg:hidden items-center h-20">
+                    <div class="flex items-center justify-start">
+                        <a href="{{ url('/booking/create') }}"
+                            class="min-h-[44px] inline-flex items-center px-3 py-2 rounded-lg bg-gold text-slate-950 text-xs font-extrabold uppercase tracking-wider hover:bg-amber-300 active:scale-95 transition">
+                            Reservasi
+                        </a>
+                    </div>
+
+                    <div class="flex items-center justify-center">
+                        <a href="#beranda" aria-label="Kembali ke Beranda"
+                            class="relative flex items-center justify-center w-12 h-12 rounded-full bg-slate-950 border-2 border-amber-400/70 shadow-md">
+                            <span class="absolute inset-0.5 rounded-full border border-amber-400/20 pointer-events-none" aria-hidden="true"></span>
+                            <img src="{{ asset('assets/img/logo.png') }}"
+                                alt="Logo Emblem"
+                                width="144"
+                                height="120"
+                                decoding="async"
+                                class="w-7 h-7 object-contain">
+                        </a>
+                    </div>
+
+                    <div class="flex items-center justify-end">
+                        <button type="button"
+                            id="mobile-menu-trigger"
+                            aria-label="Buka menu navigasi"
+                            aria-expanded="false"
+                            aria-controls="mobile-nav"
+                            class="min-h-[44px] min-w-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-amber-400/40 text-amber-400 text-xs font-bold uppercase tracking-widest hover:bg-slate-800 active:scale-95 transition">
+                            <span>Menu</span>
+                            <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
             </div>
+        </nav>
+    </header>
 
-            <button aria-label="Buka menu" class="md:hidden text-gold text-2xl"
-                onclick="document.getElementById('mobile-nav').classList.toggle('-translate-y-full')">☰</button>
-        </div>
-    </nav>
-
+    <!-- Dialog Menu Mobile -->
     <div id="mobile-nav"
-        class="fixed px-0 inset-0 bg-slate-900 z-[60] flex flex-col items-center justify-center space-y-8 text-2xl font-bold transform -translate-y-full transition-transform duration-500 md:hidden">
-        <button aria-label="Tutup menu" class="absolute top-6 right-6 text-gold text-4xl"
-            onclick="document.getElementById('mobile-nav').classList.toggle('-translate-y-full')">&times;</button>
-        <a href="#services"
-            onclick="document.getElementById('mobile-nav').classList.add('-translate-y-full')">Layanan</a>
-        <a href="#gallery" onclick="document.getElementById('mobile-nav').classList.add('-translate-y-full')">Galeri</a>
-        <a href="#barbers" onclick="document.getElementById('mobile-nav').classList.add('-translate-y-full')">Barber</a>
-        <a href="{{ route('booking.create') }}" class="hover:text-yellow-500 transition">
-            Booking Sekarang
-        </a>
-        <a href="/cek-status"
-            class="border border-gold bg-transparent text-white px-8 py-3 rounded-full hover:bg-white/10 transition">
-            Cek Status Jadwal
-        </a>
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu Navigasi Mobile"
+        class="fixed inset-0 bg-slate-950/95 z-[60] flex flex-col justify-between p-6 transform -translate-y-full transition-transform duration-300 lg:hidden">
+
+        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+            <div class="flex items-center gap-3">
+                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-slate-900 border border-amber-400/60">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="Logo Emblem" width="144" height="120" loading="lazy" decoding="async" class="w-6 h-6 object-contain">
+                </div>
+                <span class="text-xs font-bold uppercase tracking-[0.2em] text-amber-400">Navigasi Utama</span>
+            </div>
+            <button type="button"
+                id="mobile-menu-close"
+                aria-label="Tutup menu navigasi"
+                class="min-h-[44px] min-w-[44px] inline-flex items-center justify-center rounded-lg bg-slate-900 border border-slate-700 text-slate-200 hover:text-amber-400 hover:border-amber-400 transition">
+                <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="flex flex-col items-center justify-center space-y-4 my-auto">
+            <a href="#beranda"
+                class="mobile-nav-link min-h-[48px] w-full max-w-xs flex items-center justify-center rounded-xl text-lg font-bold uppercase tracking-[0.18em] text-slate-200 hover:text-amber-400 hover:bg-slate-900 transition">
+                Beranda
+            </a>
+            <a href="#services"
+                class="mobile-nav-link min-h-[48px] w-full max-w-xs flex items-center justify-center rounded-xl text-lg font-bold uppercase tracking-[0.18em] text-slate-200 hover:text-amber-400 hover:bg-slate-900 transition">
+                Layanan
+            </a>
+            <a href="#gallery"
+                class="mobile-nav-link min-h-[48px] w-full max-w-xs flex items-center justify-center rounded-xl text-lg font-bold uppercase tracking-[0.18em] text-slate-200 hover:text-amber-400 hover:bg-slate-900 transition">
+                Galeri
+            </a>
+            <a href="#barbers"
+                class="mobile-nav-link min-h-[48px] w-full max-w-xs flex items-center justify-center rounded-xl text-lg font-bold uppercase tracking-[0.18em] text-slate-200 hover:text-amber-400 hover:bg-slate-900 transition">
+                Kapster
+            </a>
+        </div>
+
+        <div class="flex flex-col gap-3 border-t border-slate-800 pt-6 max-w-xs mx-auto w-full">
+            <a href="{{ url('/booking/create') }}"
+                class="min-h-[48px] inline-flex items-center justify-center gap-2 rounded-xl bg-gold text-slate-950 font-extrabold text-sm uppercase tracking-wider hover:bg-amber-300 transition">
+                <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                <span>Reservasi Kursi</span>
+            </a>
+            <a href="{{ route('booking.cekStatusForm') }}"
+                class="min-h-[48px] inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 border border-amber-400/50 text-amber-400 font-bold text-sm uppercase tracking-wider hover:bg-slate-800 transition">
+                <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>Lacak Jadwal</span>
+            </a>
+        </div>
     </div>
 
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        <div style="background-image: url('{{ asset('assets/img/Home.webp') }}')"
-            class="absolute inset-0 bg-cover bg-center opacity-20 scale-110"></div>
-        <div class="container mx-auto px-6 relative z-10 text-center">
-            <h4 class="from-bottom text-gold font-bold tracking-[0.3em] uppercase mb-4 animate-pulse">Classic & Modern
-            </h4>
-            <h1 style="transition-delay: 0.1s;" class="from-bottom text-5xl md:text-8xl font-black mb-6 leading-tight">
-                Gaya Rambut <br><span
-                    class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-500">Karakter
-                    Kamu.</span></h1>
-            <p style="transition-delay: 0.2s;" class="from-bottom text-gray-400 max-w-2xl mx-auto mb-10 text-lg">
-                Sentuhan profesional untuk pria yang menghargai detail. Temukan kenyamanan dan gaya terbaik di
-                Barbershop.
-            </p>
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a style="transition-delay: 0.3s;" href="{{ route('booking.create') }}"
-                    class="from-bottom px-10 py-4 bg-gold text-slate-900 font-bold rounded-xl hover:bg-yellow-400">Mulai
-                    Reservasi</a>
-                <a style="transition-delay: 0.4s;" href="#services"
-                    class="from-bottom px-10 py-4 border border-gray-600 rounded-xl font-bold hover:bg-white/10">Lihat
-                    Katalog</a>
-            </div>
-        </div>
-    </section>
+    <main>
+        <!-- 1. HERO SECTION: Editorial Split Layout (7:5) -->
+        <section id="beranda" class="relative pt-28 pb-16 lg:pt-36 lg:pb-24 overflow-hidden border-b border-amber-400/15">
+            <!-- Latar Belakang Halus -->
+            <div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-900 pointer-events-none" aria-hidden="true"></div>
 
-    <section id="about" class="py-24 relative overflow-hidden">
-        <div
-            class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-gold/5 rounded-full blur-[120px]">
-        </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
 
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center gap-16">
-                <div class="w-full md:w-1/2 from-bottom relative group">
-                    <div class="absolute -top-4 -left-4 w-24 h-24 border-t-4 border-l-4 border-gold z-0"></div>
-                    <div class="absolute -bottom-4 -right-4 w-24 h-24 border-b-4 border-r-4 border-gold z-0"></div>
-                    <div class="relative z-10 overflow-hidden rounded-2xl aspect-square glass p-3">
-                        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1000&auto=format&fit=crop"
-                            alt="Barber Shop Interior" loading="lazy"
-                            class="w-full h-full object-cover rounded-xl grayscale group-hover:grayscale-0 transition duration-700">
+                    <!-- Kolom Kiri: Tipografi Utama & Aksi -->
+                    <div class="lg:col-span-7 text-left">
+                        <div class=" inline-flex items-center gap-3 mb-5">
+                            <span class="h-px w-8 bg-amber-400" aria-hidden="true"></span>
+                            <span class="text-gold font-bold tracking-[0.25em] uppercase text-xs">
+                                Heritage Gentleman's Grooming
+                            </span>
+                        </div>
+
+                        <h1 class="text-4xl sm:text-5xl xl:text-6xl font-black text-white leading-[1.12] tracking-tight mb-6">
+                            Ketelitian Klasik untuk <span class="text-gold">Karakter Pria Modern.</span>
+                        </h1>
+
+                        <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-xl mb-8">
+                            Lebih dari sekadar pangkas rambut. Kami memadukan teknik guntingan tradisional, handuk hangat, dan peralatan steril dalam suasana ruang pangkas yang tenang. Pesan kursi Anda tanpa perlu mengantre.
+                        </p>
+
+                        <!-- Baris Tombol Utama -->
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-12">
+                            <a href="{{ url('/booking/create') }}"
+                                class="min-h-[48px] inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-gold text-slate-950 font-extrabold text-xs sm:text-sm uppercase tracking-[0.15em] rounded-lg hover:bg-amber-300 active:scale-95 transition">
+                                <svg class="w-4 h-4 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <span>Pesan Kursi Sekarang</span>
+                            </a>
+                            <a href="{{ route('booking.cekStatusForm') }}"
+                                class="min-h-[48px] inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-slate-950 border border-slate-700 text-slate-200 font-bold text-xs sm:text-sm uppercase tracking-[0.14em] rounded-lg hover:border-amber-400 hover:text-amber-400 active:scale-95 transition">
+                                <svg class="w-4 h-4 text-amber-400 shrink-0" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>Lacak Status Jadwal</span>
+                            </a>
+                        </div>
+
+                        <!-- Info Strip: Jam Buka & Lokasi Nyata -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-8 border-t border-slate-800/90 max-w-xl">
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-10 h-10 rounded-full bg-slate-950 border border-amber-400/40 flex items-center justify-center text-gold shrink-0">
+                                    <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-wider text-gold">Jam Operasional</p>
+                                    <p class="text-sm text-slate-200 font-medium mt-0.5">Senin - Jumat: 09:00 - 21:00</p>
+                                    <p class="text-xs text-slate-400">Sabtu - Minggu: 10:00 - 22:00</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-10 h-10 rounded-full bg-slate-950 border border-amber-400/40 flex items-center justify-center text-gold shrink-0">
+                                    <svg class="w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold uppercase tracking-wider text-gold">Lokasi Studio</p>
+                                    <p class="text-sm text-slate-200 font-medium mt-0.5">Jl. Nasional No. 3</p>
+                                    <p class="text-xs text-slate-400">Kota Banyuwangi, Indonesia</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="w-full md:w-1/2 from-bottom" style="transition-delay: 0.3s;">
-                    <h4 class="text-gold font-bold tracking-widest uppercase mb-4 text-sm">Warisan & Kualitas</h4>
-                    <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight text-white">Lebih dari Sekedar
-                        <br><span class="text-gold">Potong Rambut.</span>
-                    </h2>
-                    <p class="text-gray-400 mb-8 leading-relaxed text-lg">
-                        Didirikan pada tahun 2026, <span class="text-white font-semibold">Barbershop</span> hadir bukan
-                        hanya untuk memangkas rambut, tapi untuk mendefinisikan kembali karakter pria modern melalui
-                        sentuhan klasik yang presisi.
+                    <!-- Kolom Kanan: Bingkai Cermin Barbershop (Arch Portrait) -->
+                    <div class="lg:col-span-5">
+                        <div class="relative mx-auto max-w-md lg:max-w-none">
+                            <!-- Bingkai Luar Beraksen Emas -->
+                            <div class="p-3 sm:p-4 rounded-t-[140px] rounded-b-2xl surface-dark shadow-2xl relative">
+                                <div class="relative overflow-hidden rounded-t-[128px] rounded-b-xl aspect-[4/5] border border-amber-400/30">
+                                    <img src="{{ asset('assets/img/Home.webp') }}"
+                                        alt="Suasana ruang pangkas rambut klasik"
+                                        width="1200"
+                                        height="800"
+                                        fetchpriority="high"
+                                        decoding="sync"
+                                        class="w-full h-full object-cover">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" aria-hidden="true"></div>
+
+                                    <!-- Keterangan di Dalam Bingkai Bawah -->
+                                    <div class="absolute bottom-0 inset-x-0 p-6 flex items-center justify-between gap-4">
+                                        <div>
+                                            <p class="text-xs font-bold uppercase tracking-[0.2em] text-gold">Est. 2026</p>
+                                            <p class="text-sm font-bold text-white">Kenyamanan Kursi Klasik</p>
+                                        </div>
+                                        <div class="w-12 h-12 rounded-full bg-slate-950 border-2 border-amber-400/80 flex items-center justify-center shrink-0">
+                                            <img src="{{ asset('assets/img/logo.png') }}"
+                                                alt="Logo Emblem"
+                                                width="144"
+                                                height="120"
+                                                decoding="async"
+                                                class="w-7 h-7 object-contain">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT SECTION: Filosofi & 3 Standar Utama (5:7) -->
+        <section id="about" class="cv-auto py-16 md:py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+
+                    <!-- Kolom Foto Interior & Kutipan -->
+                    <div class="lg:col-span-5 from-bottom">
+                        <div class="relative">
+                            <div class="p-3 surface-card rounded-2xl">
+                                <div class="overflow-hidden rounded-xl aspect-[4/5] border border-slate-700">
+                                    <img src="{{ asset('assets/img/studio-interior.webp') }}"
+                                        alt="Interior ruang pangkas klasik dan peralatan kapster"
+                                        width="640"
+                                        height="800"
+                                        loading="lazy"
+                                        decoding="async"
+                                        class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-500">
+                                </div>
+                            </div>
+
+                            <!-- Kartu Kutipan Kepala Kapster -->
+                            <div class="mt-4 p-5 surface-dark rounded-xl">
+                                <p class="text-slate-200 text-sm italic leading-relaxed">
+                                    "Kepercayaan diri seorang pria bermula dari kursi pangkas kami. Setiap detail guntingan dikerjakan tanpa tergesa-gesa."
+                                </p>
+                                <div class="mt-3 flex items-center gap-2">
+                                    <span class="text-amber-400 text-[10px]" aria-hidden="true">◆</span>
+                                    <span class="font-bold text-gold text-xs uppercase tracking-[0.18em]">Kepala Kapster</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kolom Narasi & Daftar Standar Bernomor -->
+                    <div class="lg:col-span-7 from-bottom" style="transition-delay: 0.15s;">
+                        <div class="inline-flex items-center gap-2.5 mb-3">
+                            <span class="text-amber-400 text-xs" aria-hidden="true">◆</span>
+                            <span class="text-gold font-bold tracking-[0.22em] uppercase text-xs">Warisan &amp; Standar Kerja</span>
+                        </div>
+
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-6">
+                            Dirancang untuk Pria yang Menghargai <span class="text-gold">Kerapian Sejati.</span>
+                        </h2>
+
+                        <p class="text-slate-300 text-base sm:text-lg leading-relaxed mb-8">
+                            Didirikan pada tahun 2026 di Banyuwangi, kami menghadirkan ruang perawatan rambut dan janggut yang mengutamakan kebersihan alat, ketepatan proporsi wajah, serta kenyamanan waktu Anda.
+                        </p>
+
+                        <!-- 3 Pilar Bernomor (RHYTHM Variation: Numbered Ledger Rows) -->
+                        <div class="divide-y divide-slate-800 border-y border-slate-800">
+                            <div class="py-5 flex items-start gap-5">
+                                <span class="text-gold font-black text-lg tracking-wider shrink-0 pt-0.5">01</span>
+                                <div>
+                                    <h3 class="text-white font-bold text-base sm:text-lg">Sterilisasi Sinar UV Setiap Sesi</h3>
+                                    <p class="text-slate-300 text-sm mt-1 leading-relaxed">
+                                        Seluruh gunting, clipper, dan sisir melalui proses sterilisasi ultraviolet sebelum menyentuh rambut dan kulit kepala Anda.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="py-5 flex items-start gap-5">
+                                <span class="text-gold font-black text-lg tracking-wider shrink-0 pt-0.5">02</span>
+                                <div>
+                                    <h3 class="text-white font-bold text-base sm:text-lg">Konsultasi Kontur &amp; Bentuk Wajah</h3>
+                                    <p class="text-slate-300 text-sm mt-1 leading-relaxed">
+                                        Kapster kami membantu menentukan potongan klasik maupun modern yang paling serasi dengan struktur rahang dan arah tumbuh rambut.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="py-5 flex items-start gap-5">
+                                <span class="text-gold font-black text-lg tracking-wider shrink-0 pt-0.5">03</span>
+                                <div>
+                                    <h3 class="text-white font-bold text-base sm:text-lg">Pomade &amp; Tonik Pilihan</h3>
+                                    <p class="text-slate-300 text-sm mt-1 leading-relaxed">
+                                        Setiap sesi diakhiri dengan penataan menggunakan produk perawatan rambut yang mudah dibilas dan menyehatkan kulit kepala.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SERVICES SECTION: Heritage Grooming Menu Board -->
+        <section id="services" class="cv-auto py-16 md:py-24 bg-slate-950/70 border-y border-amber-400/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+
+                    <!-- Kolom Kiri: Pengantar Menu & Info Reservasi -->
+                    <div class="lg:col-span-4 from-bottom">
+                        <div class="inline-flex items-center gap-2.5 mb-3">
+                            <span class="text-amber-400 text-xs" aria-hidden="true">◆</span>
+                            <span class="text-gold font-bold tracking-[0.22em] uppercase text-xs">Daftar Perawatan</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-black text-white leading-tight mb-4">
+                            Menu Layanan &amp; <span class="text-gold">Tarif Resmi.</span>
+                        </h2>
+                        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                            Setiap layanan sudah mencakup pencucian rambut, handuk hangat, dan penataan akhir. Pilih perawatan yang Anda butuhkan dan tentukan jam kedatangan.
+                        </p>
+
+                        <div class="p-6 surface-card rounded-2xl">
+                            <p class="text-xs font-bold uppercase tracking-[0.18em] text-gold mb-2">Tanpa Antre di Lokasi</p>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-5">
+                                Amankan jam potong rambut Anda lebih awal melalui formulir reservasi daring kami.
+                            </p>
+                            <a href="{{ url('/booking/create') }}"
+                                class="min-h-[44px] w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-gold text-slate-950 font-extrabold text-xs uppercase tracking-wider hover:bg-amber-300 transition">
+                                <span>Buka Formulir Reservasi</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Kolom Kanan: Papan Menu Klasik (Menu Board) -->
+                    <div class="lg:col-span-8 from-bottom" style="transition-delay: 0.15s;">
+                        <div class="surface-dark rounded-2xl p-6 sm:p-8 lg:p-10 shadow-2xl">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                                <span class="text-xs font-bold uppercase tracking-[0.2em] text-gold">Layanan Kapster</span>
+                                <span class="text-xs font-bold uppercase tracking-[0.2em] text-slate-300">Tarif &amp; Aksi</span>
+                            </div>
+
+                            @forelse($services as $service)
+                                <div class="py-5 first:pt-0 last:pb-0 border-b last:border-b-0 border-slate-800/90 group">
+                                    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-4">
+                                        <div class="flex items-baseline gap-3">
+                                            <span class="text-amber-400/70 text-xs font-bold">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}.</span>
+                                            <h3 class="text-lg sm:text-xl font-extrabold text-white group-hover:text-amber-400 transition-colors">
+                                                {{ $service->name }}
+                                            </h3>
+                                        </div>
+
+                                        <!-- Garis Titik-Titik Penghubung di Layar Lebar -->
+                                        <div class="hidden sm:block flex-grow border-b border-dashed border-slate-700 mx-2" aria-hidden="true"></div>
+
+                                        <div class="flex items-center justify-between sm:justify-end gap-4 mt-2 sm:mt-0">
+                                            <span class="text-gold font-extrabold text-lg sm:text-xl whitespace-nowrap">
+                                                Rp {{ number_format($service->price ?? 0, 0, ',', '.') }}
+                                            </span>
+                                            <a href="{{ url('/booking/create') }}"
+                                                class="min-h-[44px] inline-flex items-center px-4 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold uppercase tracking-wider text-slate-200 hover:border-amber-400 hover:text-amber-400 transition">
+                                                Pilih
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-2 sm:pl-7 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs sm:text-sm text-slate-300">
+                                        <span>Estimasi durasi: <strong class="text-white">{{ $service->duration ?? 30 }} menit</strong></span>
+                                        <span class="text-slate-600" aria-hidden="true">•</span>
+                                        <span>Ditangani langsung oleh kapster pilihan Anda</span>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="py-10 text-center">
+                                    <p class="text-white font-bold text-lg mb-2">Daftar layanan sedang diperbarui</p>
+                                    <p class="text-slate-300 text-sm mb-6">Silakan menuju halaman reservasi untuk memeriksa jadwal kapster yang tersedia.</p>
+                                    <a href="{{ url('/booking/create') }}"
+                                        class="min-h-[44px] inline-flex items-center px-6 py-2.5 rounded-lg bg-gold text-slate-950 font-extrabold text-xs uppercase tracking-wider">
+                                        Ke Halaman Reservasi
+                                    </a>
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. GALLERY SECTION: Lookbook Dokumentasi -->
+        <section id="gallery" class="cv-auto py-16 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+                <!-- Header Sejajar Kiri-Kanan -->
+                <div class="from-bottom flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-slate-800 gap-6">
+                    <div>
+                        <div class="inline-flex items-center gap-2.5 mb-3">
+                            <span class="text-amber-400 text-xs" aria-hidden="true">◆</span>
+                            <span class="text-gold font-bold tracking-[0.22em] uppercase text-xs">Arsip Visual</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white">
+                            Galeri Hasil <span class="text-gold">Potongan.</span>
+                        </h2>
+                    </div>
+                    <p class="text-slate-300 text-sm sm:text-base max-w-md">
+                        Dokumentasi asli hasil pangkas rambut dan penataan janggut pelanggan di kursi studio kami.
                     </p>
+                </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
-                        <div class="flex items-start space-x-4">
-                            <div class="mt-1 text-gold">
-                                <i class="fas fa-check-circle"></i>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @forelse($galleries as $item)
+                        <article class="from-bottom surface-card rounded-2xl overflow-hidden group flex flex-col">
+                            <div class="relative aspect-[4/3] overflow-hidden bg-slate-950">
+                                <img src="{{ asset('storage/' . $item->image) }}"
+                                    alt="{{ $item->title ?? 'Dokumentasi hasil potong rambut' }}"
+                                    width="800"
+                                    height="600"
+                                    loading="lazy"
+                                    decoding="async"
+                                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition duration-500">
                             </div>
-                            <div>
-                                <h5 class="font-bold text-white">Sterilisasi Ketat</h5>
-                                <p class="text-gray-500 text-sm">
-                                    Alat disterilkan dengan sinar UV setiap sesi.
-                                </p>
+                            <div class="p-5 flex items-center justify-between gap-4 bg-slate-950/80 border-t border-slate-800">
+                                <div>
+                                    @if(!empty($item->subtitle))
+                                        <p class="text-gold font-bold text-[11px] uppercase tracking-[0.18em] mb-1">
+                                            {{ $item->subtitle }}
+                                        </p>
+                                    @endif
+                                    <h3 class="text-white font-bold text-base">
+                                        {{ $item->title }}
+                                    </h3>
+                                </div>
+                                <span class="text-xs font-bold text-slate-400 border border-slate-800 rounded-full px-2.5 py-1">
+                                    #{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}
+                                </span>
                             </div>
+                        </article>
+                    @empty
+                        <div class="col-span-full surface-card rounded-2xl p-10 text-center">
+                            <p class="text-white font-bold text-lg mb-2">Belum ada foto galeri yang diunggah</p>
+                            <p class="text-slate-300 text-sm">Dokumentasi hasil cukur terbaru akan segera ditampilkan setelah diunggah oleh admin.</p>
                         </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="mt-1 text-gold">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <div>
-                                <h5 class="font-bold text-white">Premium Product</h5>
-                                <p class="text-gray-500 text-sm">
-                                    Hanya menggunakan pomade & tonik terbaik.
-                                </p>
-                            </div>
-                        </div>
+                    @endforelse
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 5. BARBERS SECTION: Tim Kapster -->
+        <section id="barbers" class="cv-auto py-16 md:py-24 bg-slate-950/70 border-t border-amber-400/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+                <div class="from-bottom text-center max-w-2xl mx-auto mb-12 md:mb-16">
+                    <div class="inline-flex items-center justify-center gap-2.5 mb-3">
+                        <span class="text-amber-400 text-xs" aria-hidden="true">◆</span>
+                        <span class="text-gold font-bold tracking-[0.22em] uppercase text-xs">Tim Profesional</span>
+                        <span class="text-amber-400 text-xs" aria-hidden="true">◆</span>
                     </div>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">
+                        Kapster <span class="text-gold">Pilihan Anda.</span>
+                    </h2>
+                    <p class="text-slate-300 text-sm sm:text-base">
+                        Pilih kapster andalan Anda saat mengisi formulir reservasi untuk mendapatkan gaya potongan yang konsisten di setiap kunjungan.
+                    </p>
+                </div>
 
-                    <div class="p-6 glass border-l-4 border-gold rounded-r-2xl">
-                        <p class="italic text-gray-300">
-                            "Kepercayaan diri seorang pria bermula dari kursi barber kami. Kami memastikan setiap detail
-                            adalah karya seni."
-                        </p>
-                        <p class="mt-4 font-bold text-gold text-sm uppercase tracking-widest">
-                            — Head Barber Barbershop
-                        </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    @forelse($barbers as $barber)
+                        <div style="transition-delay: {{ $loop->index * 0.1 }}s"
+                            class="from-bottom surface-card rounded-2xl p-3 flex flex-col justify-between group hover:border-amber-400/60 transition">
+                            <div class="relative overflow-hidden rounded-xl aspect-[3/4] bg-slate-950 mb-4">
+                                <img src="{{ asset('storage/' . $barber->photo) }}"
+                                    alt="Potret Kapster {{ $barber->name }}"
+                                    width="600"
+                                    height="800"
+                                    loading="lazy"
+                                    decoding="async"
+                                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500 scale-105 group-hover:scale-100">
+                                <span class="absolute inset-2 rounded-lg border border-amber-400/25 pointer-events-none" aria-hidden="true"></span>
+                            </div>
+
+                            <div class="px-2 pb-2 text-center">
+                                <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-gold mb-1">Master Kapster</p>
+                                <h3 class="font-extrabold text-lg text-white mb-4">{{ $barber->name }}</h3>
+                                <a href="{{ url('/booking/create') }}"
+                                    class="min-h-[44px] w-full inline-flex items-center justify-center rounded-lg bg-slate-900 border border-slate-700 text-xs font-bold uppercase tracking-wider text-slate-200 hover:border-amber-400 hover:text-amber-400 transition">
+                                    Pesan Jadwal
+                                </a>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="col-span-full surface-card rounded-2xl p-10 text-center">
+                            <p class="text-white font-bold text-lg mb-2">Data kapster sedang disiapkan</p>
+                            <p class="text-slate-300 text-sm">Daftar kapster yang bertugas akan muncul di sini setelah ditambahkan oleh admin.</p>
+                        </div>
+                    @endforelse
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 6. CLOSING APPOINTMENT BANNER -->
+        <section aria-label="Ajakan Reservasi" class="py-16 md:py-20 border-t border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+                <div class="from-bottom surface-dark rounded-2xl p-8 sm:p-12 border-2 border-amber-400/40 relative overflow-hidden">
+                    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+                        <div class="max-w-2xl">
+                            <div class="inline-flex items-center gap-2 mb-3">
+                                <span class="text-amber-400 text-xs" aria-hidden="true">◆</span>
+                                <span class="text-gold font-bold uppercase tracking-[0.2em] text-xs">Siap Tampil Rapi Hari Ini?</span>
+                            </div>
+                            <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight mb-3">
+                                Atur Jadwal Pangkas Rambut Anda Sekarang.
+                            </h2>
+                            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                                Tentukan tanggal, jam kedatangan, serta kapster pilihan Anda dalam hitungan detik, atau periksa status reservasi yang sudah Anda buat sebelumnya.
+                            </p>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full lg:w-auto shrink-0">
+                            <a href="{{ url('/booking/create') }}"
+                                class="min-h-[48px] inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg bg-gold text-slate-950 font-extrabold text-xs sm:text-sm uppercase tracking-wider hover:bg-amber-300 transition">
+                                <span>Buat Reservasi</span>
+                            </a>
+                            <a href="{{ route('booking.cekStatusForm') }}"
+                                class="min-h-[48px] inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-200 font-bold text-xs sm:text-sm uppercase tracking-wider hover:border-amber-400 hover:text-amber-400 transition">
+                                <span>Lacak Status Jadwal</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-
-    <section id="services" class="py-24 bg-slate-900/50">
-        <div class="container mx-auto px-6">
-            <div class="from-bottom text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-bold mb-2">Layanan <span class="text-gold">Unggulan</span></h2>
-                <div class="h-1 w-20 bg-gold mx-auto"></div>
-            </div>
-
-
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 justify-items-center gap-8">
-                @forelse($services as $service)
-                    <div style="transition-delay: {{ $loop->index * 0.1 }}s"
-                        class="from-bottom glass p-8 rounded-3xl hover:border-gold/50 group">
-                        <div
-                            class="w-12 h-12 bg-gold/10 rounded-2xl flex items-center justify-center text-gold mb-6 group-hover:bg-gold group-hover:text-slate-900 transition duration-500">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758L5 19m0-14l4.121 4.121">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold mb-3">{{ $service->name }}</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
-                            Layanan terbaik dengan hasil presisi dan produk berkualitas tinggi.
-                        </p>
-                        <span class="text-gold font-bold text-lg">IDR
-                            {{ number_format($service->price ?? 0, 0, ',', '.') }}</span>
-                    </div>
-                @empty
-                    <div class="col-span-full flex flex-col items-center w-full from-bottom delay-200">
-                        <span class="text-xl italic">Belum ada layanan yang tersedia.</span>
-                    </div>
-                @endforelse
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery" class="py-24 bg-slate-900/50">
-        <div class="container mx-auto px-6">
-            <div class="from-bottom text-center mb-16">
-                <h4 class="text-gold font-bold tracking-widest uppercase mb-2 text-sm">Galeri Kita</h4>
-                <h2 class="text-3xl md:text-5xl font-black text-white">Jejak Visual <span
-                        class="text-gold">Karakter</span></h2>
-                <div class="h-1 w-20 bg-gold mx-auto mt-6"></div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                @forelse($galleries as $item)
-                    @if ($loop->index == 3)
-                        <div class="lg:col-span-2 group relative overflow-hidden rounded-3xl h-[300px] lg:h-auto">
-                    @else
-                        <div class="group relative overflow-hidden rounded-3xl aspect-square">
-                    @endif
-
-                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title ?? 'Gallery image' }}" loading="lazy"
-                        class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition duration-700">
-                        <div
-                            class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent
-                            opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-8">
-                                <span class="text-gold font-bold text-xs uppercase tracking-[0.2em] mb-2">
-                                    {{ $item->subtitle }}
-                                </span>
-                                <h4 class="text-white text-xl font-bold">
-                                    {{ $item->title }}
-                                </h4>
-                            </div>
-                        </div>
-                @empty
-                    <div class="col-span-full flex flex-col items-center w-full from-bottom delay-200">
-                        <span class="text-xl text-center italic">Belum ada Galeri.</span>
-                    </div>
-                @endforelse
-
-        </div>
-
-        <div class="mt-16 text-center from-bottom">
-            <p class="text-gray-400 mb-6 font-medium">
-                Lihat lebih banyak hasil karya kami di Instagram
-            </p>
-            <a href="#"
-                class="inline-flex items-center space-x-3 text-gold font-bold border-b-2 border-gold pb-1 hover:text-white hover:border-white transition italic">
-                <span>Follow @barbershop_official</span>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                </svg>
-            </a>
-        </div>
-        </div>
-    </section>
-
-
-    <section id="barbers" class="py-24">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="from-bottom text-3xl md:text-5xl font-bold mb-16">Staf <span
-                    class="text-gold">Barbershop</span></h2>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                @forelse($barbers as $barber)
-                    <div style="transition-delay: {{ $loop->index * 0.2 }}s" class="from-bottom group">
-                        <div class="relative overflow-hidden rounded-2xl aspect-[3/4] mb-4">
-                            <img src="{{ asset('storage/' . $barber->photo) }}" alt="{{ $barber->name ?? 'Barber photo' }}" loading="lazy"
-                                class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700 scale-110 group-hover:scale-100">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60">
-                            </div>
-                        </div>
-                        <h4 class="font-bold text-lg">{{ $barber->name }}</h4>
-                    </div>
-                @empty
-                    <div class="col-span-full flex flex-col items-center w-full from-bottom delay-200">
-                        <span class="text-xl text-center italic">Belum ada Staf Barbershop.</span>
-                    </div>
-                @endforelse
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-slate-950 pt-20 pb-10 border-t border-gray-800">
-        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 pt-16 pb-10 border-t border-amber-400/25">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <div>
-                <h3 class="text-2xl font-bold text-gold mb-6 uppercase">✂ Barbershop</h3>
-                <p class="text-gray-500 leading-relaxed text-sm">
-                    Memberikan standar baru dalam perawatan rambut pria sejak 2026. Kualitas adalah prioritas utama
-                    kami.
+                <a href="#beranda" class="inline-flex items-center gap-3.5 mb-4">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full bg-slate-900 border-2 border-amber-400/70">
+                        <img src="{{ asset('assets/img/logo.png') }}" alt="Logo Emblem" width="144" height="120" loading="lazy" decoding="async" class="w-7 h-7 object-contain">
+                    </div>
+                    <div>
+                        <span class="block text-base font-extrabold tracking-[0.18em] text-gold uppercase">Heritage Grooming</span>
+                        <span class="block text-xs text-slate-400">Studio Pangkas Rambut Pria</span>
+                    </div>
+                </a>
+                <p class="text-slate-300 leading-relaxed text-sm">
+                    Standar perawatan rambut dan janggut pria sejak 2026. Ketelitian cukur dan kenyamanan ruang adalah prioritas utama kami.
                 </p>
             </div>
+
             <div>
-                <h4 class="font-bold mb-6 uppercase tracking-widest text-sm">Waktu Operasional</h4>
-                <ul class="text-gray-500  space-y-3">
-                    <li class="flex items-center space-x-6"><span>Senin - Jumat</span> <span
-                            class="text-gray-300">09:00 -
-                            21:00</span></li>
-                    <li class="flex items-center space-x-6"><span>Sabtu - Minggu</span> <span
-                            class="text-gray-300">10:00 -
-                            22:00</span></li>
+                <h3 class="font-bold text-white mb-4 uppercase tracking-[0.18em] text-xs">Waktu Operasional</h3>
+                <ul class="text-slate-300 space-y-3 text-sm">
+                    <li class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+                        <span>Senin - Jumat</span>
+                        <span class="text-gold font-bold">09:00 - 21:00 WIB</span>
+                    </li>
+                    <li class="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
+                        <span>Sabtu - Minggu</span>
+                        <span class="text-gold font-bold">10:00 - 22:00 WIB</span>
+                    </li>
                 </ul>
             </div>
+
             <div>
-                <h4 class="font-bold mb-6 uppercase tracking-widest text-sm">Lokasi Kami</h4>
-                <p class="text-gray-500 text-sm mb-4 italic">
-                    Jl. Nasionak No. 3, Kota Banyuwangi, Indonesia
+                <h3 class="font-bold text-white mb-4 uppercase tracking-[0.18em] text-xs">Lokasi &amp; Navigasi</h3>
+                <p class="text-slate-300 text-sm mb-5 leading-relaxed">
+                    Jl. Nasional No. 3, Kota Banyuwangi, Indonesia
                 </p>
-                <div class="flex space-x-4">
-                    <a href="#" aria-label="Instagram"
-                        class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:text-yellow-500 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-instagram" viewBox="0 0 16 16">
-                            <path
-                                d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
-                        </svg>
+                <div class="flex flex-wrap gap-3">
+                    <a href="#services"
+                        class="min-h-[44px] inline-flex items-center px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 text-xs font-bold uppercase tracking-wider hover:border-amber-400 hover:text-amber-400 transition">
+                        Menu Layanan
                     </a>
-                    <a href="#" aria-label="WhatsApp"
-                        class="w-10 h-10 glass rounded-lg flex items-center justify-center hover:text-yellow-500 transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-whatsapp" viewBox="0 0 16 16">
-                            <path
-                                d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
-                        </svg>
+                    <a href="#gallery"
+                        class="min-h-[44px] inline-flex items-center px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 text-xs font-bold uppercase tracking-wider hover:border-amber-400 hover:text-amber-400 transition">
+                        Galeri
+                    </a>
+                    <a href="#barbers"
+                        class="min-h-[44px] inline-flex items-center px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 text-xs font-bold uppercase tracking-wider hover:border-amber-400 hover:text-amber-400 transition">
+                        Kapster
                     </a>
                 </div>
             </div>
         </div>
-        <div class="text-center text-gray-600 text-xs border-t border-gray-900 pt-10">
-            &copy; 2026 Barbershop. Hak cipta dilindungi.
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 text-center text-slate-400 text-xs border-t border-slate-900 pt-8">
+            &copy; 2026 Heritage Grooming Barbershop. Hak cipta dilindungi.
         </div>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const elemen = document.querySelectorAll('.from-bottom');
-
-            const animasiBawah = {
-                root: null, // Mengacu pada viewport
-                threshold: 0 // Elemen terlihat 15% langsung trigger
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Jika terlihat di layar, tambahkan class active
-                        entry.target.classList.add('active');
-                    } else {
-                        // Jika tidak terlihat (scrolled away), hapus class active agar animasi berulang
-                        entry.target.classList.remove('active');
-                    }
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: '0px 0px -40px 0px',
+                    threshold: 0.05
                 });
-            }, animasiBawah);
 
-            elemen.forEach(box => {
-                observer.observe(box);
+                elemen.forEach(box => observer.observe(box));
+            } else {
+                elemen.forEach(box => box.classList.add('active'));
+            }
+
+            const mobileNav = document.getElementById('mobile-nav');
+            const openBtn = document.getElementById('mobile-menu-trigger');
+            const closeBtn = document.getElementById('mobile-menu-close');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+            function openMobileMenu() {
+                mobileNav.classList.remove('-translate-y-full');
+                openBtn.setAttribute('aria-expanded', 'true');
+                closeBtn.focus();
+            }
+
+            function closeMobileMenu() {
+                mobileNav.classList.add('-translate-y-full');
+                openBtn.setAttribute('aria-expanded', 'false');
+                openBtn.focus();
+            }
+
+            openBtn.addEventListener('click', openMobileMenu);
+            closeBtn.addEventListener('click', closeMobileMenu);
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileNav.classList.add('-translate-y-full');
+                    openBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !mobileNav.classList.contains('-translate-y-full')) {
+                    closeMobileMenu();
+                }
             });
         });
     </script>

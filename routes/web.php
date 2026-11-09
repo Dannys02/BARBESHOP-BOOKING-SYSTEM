@@ -8,14 +8,6 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\SettingsController;
 
-Route::get('/', function () {
-  return view('welcome');
-});
-
-// Route::get('/dashboard', function () {
-//   return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('admin.dashboard');
-
 Route::middleware('auth')->group(function () {
   Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
   Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -25,9 +17,9 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/', function() {
-  $barbers = App\Models\Barber::all();
-  $services = App\Models\Service::all();
-  $galleries = App\Models\Gallery::all();
+  $barbers = App\Models\Barber::select(['id', 'name', 'photo'])->get();
+  $services = App\Models\Service::select(['id', 'name', 'price', 'duration'])->get();
+  $galleries = App\Models\Gallery::select(['id', 'title', 'subtitle', 'image'])->get();
 
   return view('welcome', compact('barbers', 'services', 'galleries'));
 });
